@@ -1,0 +1,115 @@
+/* ========= prueba.css ========= */
+
+/* Reset básico y tipografías del sistema */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #f7f7fb;
+  --text: #1f2530;
+  --muted: #5e6b85;
+  --accent: #7c3aed;    /* violeta lindo */
+  --accent-2: #06b6d4;  /* cian */
+  --radius: 16px;
+}
+
+/* Soporte automático para modo oscuro */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1420;
+    --text: #e8ecf4;
+    --muted: #b2bdd3;
+    --accent: #a78bfa;
+    --accent-2: #22d3ee;
+  }
+}
+
+body {
+  background: radial-gradient(1000px 600px at 80% -10%, color-mix(in oklab, var(--accent) 20%, transparent), transparent),
+              radial-gradient(800px 500px at 0% 110%, color-mix(in oklab, var(--accent-2) 18%, transparent), transparent),
+              var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  line-height: 1.6;
+  min-height: 100svh;
+
+  /* Centrado elegante */
+  display: grid;
+  place-content: center;
+  padding: 4rem 1.25rem;
+}
+
+/* Tarjeta suave que envuelve el contenido (sin tocar tu HTML) */
+body > * {
+  /* Aplica estilo a h1 y p como bloque visual */
+  max-width: 720px;
+}
+
+/* Título con gradiente y animación sutil */
+h1 {
+  font-size: clamp(2.2rem, 4vw + 1rem, 3.5rem);
+  line-height: 1.1;
+  margin: 0 0 0.75rem;
+  letter-spacing: 0.3px;
+
+  /* Gradiente en el texto con fallback */
+  color: var(--accent);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  animation: fade-in-up 600ms ease both;
+}
+
+/* Párrafo descriptivo */
+p {
+  margin: 0;
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+  color: var(--muted);
+  backdrop-filter: blur(0.6px);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  background: color-mix(in oklab, var(--bg) 65%, transparent);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.06),
+    0 8px 24px rgba(0,0,0,0.04);
+  animation: fade-in 700ms 120ms ease both;
+}
+
+/* Efecto hover sutil en desktop */
+@media (hover: hover) and (pointer: fine) {
+  p:hover {
+    transform: translateY(-2px);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+    box-shadow:
+      0 2px 0 rgba(0,0,0,0.06),
+      0 12px 28px rgba(0,0,0,0.06);
+  }
+}
+
+/* Animaciones */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Accesibilidad: foco visible si luego agregás links o botones */
+:focus-visible {
+  outline: 3px solid color-mix(in oklab, var(--accent) 60%, white);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
